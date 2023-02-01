@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Children } from 'react'
 import axios from 'axios'
 
 const useField = (type) => {
@@ -20,16 +20,17 @@ const useCountry = (name) => {
 
   useEffect(() => {
     axios.get("https://restcountries.com/v3.1/all").then((response)=>{
+      console.log("response ma k ahucha ",response)
 
-      const specificCountry = response.data.filter(country => country.name.common.toLowerCase().includes(name))
-      console.log(specificCountry)
-      if(specificCountry.length===1){
+      const specificCountry = response.data.find(state => state.name.common.toLowerCase()=== name.toLowerCase());
+      console.log(specificCountry,"this is specific country")
+      
 
-        setCountry(specificCountry[0])
-        console.log(country)
-      }
+        setCountry(specificCountry)
+        
+      
 
-     return country
+   
 
     })
   },[country,name])
@@ -39,6 +40,7 @@ const useCountry = (name) => {
 }
 
 const Country = ({ country }) => {
+  
   if (!country) {
     return <div>not found...</div>
   }
