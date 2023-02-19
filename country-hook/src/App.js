@@ -33,7 +33,7 @@ const useCountry = (name) => {
    
 
     })
-  },[country,name])
+  },[ country,name])
 
 
   return country
